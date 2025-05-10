@@ -12,6 +12,6 @@ spec:
       port: 8080
       targetPort: 8080
     {{- if eq .Values.service.type "NodePort" }}
-    nodePort: {{ .Values.service.nodePort }}
+      nodePort: {{ .Values.service.nodePort }}
     {{- end }}
   type: {{ .Values.service.type }}
