@@ -5,5 +5,5 @@ metadata:
   labels:
     app: {{ .Values.appName }}
 data:
-  APP_VERSION: {{ .Values.image.tag }}
-  BACKGROUND_COLOR: {{ .Values.cm.config.bg_color }}
+  APP_VERSION: {{ .Values.image.tag | quote }}
+  BACKGROUND_COLOR: {{ .Values.cm.config.bg_color | quote }}
