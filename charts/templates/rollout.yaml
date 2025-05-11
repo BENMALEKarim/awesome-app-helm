@@ -8,10 +8,17 @@ metadata:
 spec:
   replicas: {{ .Values.replicas }}
   strategy:
+{{- if eq .Values.rollout.strategy "canary" }}
     canary:
       steps:
-        - setWeight: 25
+        - setWeight: 50
         - pause: {}
+{{- else if eq .Values.rollout.strategy "blueGreen" }}
+    blueGreen: 
+      activeService: {{ .Values.appName }}-service 
+      previewService: {{ .Values.appName }}-service-preview
+      autoPromotionEnabled: false
+{{- end }}
   revisionHistoryLimit: 1
   selector:
     matchLabels:
