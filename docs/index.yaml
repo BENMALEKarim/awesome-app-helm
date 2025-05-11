@@ -3,12 +3,12 @@ entries:
   awesome-app:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-05-11T17:55:32.353006707Z"
+    created: "2025-05-11T18:04:46.800341843Z"
     description: A Helm chart for Kubernetes
-    digest: b8f6ec4034c2a73e4d0ff6d97dd1c7fe72c33ca9641ec6df01929724fb57bb33
+    digest: 7ccd752399a82737470c515c313b4a07e2196000ade1f8078cf176d55dddea01
     name: awesome-app
     type: application
     urls:
     - https://BENMALEKarim.github.io/awesome-app-helm/awesome-app-1.0.0.tgz
     version: 1.0.0
-generated: "2025-05-11T17:55:32.352608663Z"
+generated: "2025-05-11T18:04:46.799980961Z"
