@@ -17,8 +17,8 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/config-cm.yaml") . | sha256sum }}
-        checksum/config: {{ include (print $.Template.BasePath "/template-cm.yaml") . | sha256sum }}
+        checksum/config-cm: {{ include (print $.Template.BasePath "/config-cm.yaml") . | sha256sum }}
+        checksum/template-cm: {{ include (print $.Template.BasePath "/template-cm.yaml") . | sha256sum }}
       labels:
         app: {{ .Values.appName }}
     spec:
