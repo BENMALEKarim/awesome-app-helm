@@ -12,7 +12,7 @@ data:
       <title>Flask App</title>
       <style>
         body {
-          background-color: {{ '{{ bg_color }}' }};
+          background-color: {{ printf "{{ bg_color }}" }};
           color: #333;
           font-family: Arial, sans-serif;
           display: flex;
@@ -24,6 +24,6 @@ data:
       </style>
     </head>
     <body>
-      {{ '{{ message }}' }}
+      {{ printf "{{ message }}" }}
     </body>
     </html>
