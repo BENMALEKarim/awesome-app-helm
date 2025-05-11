@@ -21,6 +21,10 @@ spec:
       labels:
         app: {{ .Values.appName }}
     spec:
+      volumes:
+        - name: template-volume
+          configMap:
+            name: {{ .Values.appName }}-template-cm
       containers:
         - name: {{ .Values.appName }}-container
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -28,4 +32,7 @@ spec:
           - containerPort: 8080
           envFrom:
           - configMapRef:
-              name: {{ .Values.appName }}-configmap
+              name: {{ .Values.appName }}-config-cm
+          volumeMounts:
+          - name: template-volume
+            mountPath: /app/templates
