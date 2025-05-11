@@ -5,4 +5,5 @@ metadata:
   labels:
     app: {{ .Values.appName }}
 data:
-  MESSAGE: {{ .Values.message }}
+  APP_VERSION: {{ .Values.image.tag }}
+  BACKGROUND_COLOR: "#90EE90"
