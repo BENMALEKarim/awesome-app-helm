@@ -1,7 +1,7 @@
 appName: awesome-app
 image:
   repository: benmalekarim/awesome-app
-  tag: 9622cc03b28f500d545f28ba9fbcf6943aa02ec4
+  tag: 0676c769cfd5fbcf345a03713eef06cfd0fad1cf
 replicas: 2
 service:
   type: ClusterIP
