@@ -1,4 +1,4 @@
-{{- if eq .Values.hpa.enabled }}
+{{- if .Values.hpa.enabled }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -7,9 +7,15 @@ metadata:
     app: {{ .Values.appName }}
 spec:
   scaleTargetRef:
+{{- if .Values.rollout.enabled }}
     apiVersion: argoproj.io/v1alpha1
     kind: Rollout
     name: {{ .Values.appName }}-rollout
+{{- else }}
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.appName }}-deployment
+{{- end }}
   minReplicas: {{ .Values.hpa.minReplicas }}
   maxReplicas: {{ .Values.hpa.maxReplicas }}
   metrics:
