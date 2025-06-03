@@ -1,0 +1,164 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.appName }}-template-cm
+  labels:
+    app: {{ .Values.appName }}
+data:
+  base.html: |
+    {{`<!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Players Catalog</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 2em;
+          background-color: #f8f9fa;
+          color: #212529;
+        }
+        h1, h2, h3 {
+          color: #333;
+        }
+        a {
+          color: #007bff;
+          text-decoration: none;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+        form input, form button {
+          margin: 0.3em 0;
+          padding: 0.5em;
+          width: 300px;
+          display: block;
+        }
+        .filters {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          align-items: center;
+          margin-bottom: 1.5em;
+        }
+        .filters input,
+        .filters button {
+          padding: 0.5em;
+          border: 1px solid #ced4da;
+          border-radius: 4px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          border-radius: 8px;
+          overflow: hidden;
+          background-color: white;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        thead {
+          background-color: #343a40;
+          color: white;
+        }
+        th, td {
+          padding: 0.75em 1em;
+          text-align: left;
+          border-bottom: 1px solid #dee2e6;
+        }
+        tr:nth-child(even) {
+          background-color: #f1f3f5;
+        }
+        tr:hover {
+          background-color: #e9ecef;
+        }
+        .info {
+          color: gray;
+          font-size: 0.9em;
+          margin-top: 1em;
+        }
+        .btn {
+          display: inline-block;
+          padding: 0.5em 1em;
+          background-color: #007bff;
+          color: white;
+          border-radius: 4px;
+          text-decoration: none;
+          font-weight: bold;
+          transition: background-color 0.2s ease;
+        }
+        .btn:hover {
+          background-color: #0056b3;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>⚽ Players Catalog</h1>
+      {% block content %}{% endblock %}
+    </body>
+    </html>`}}
+
+  index.html: |
+    {{`{% extends "base.html" %}
+    {% block content %}
+
+        <!-- Filters -->
+        <form method="get" class="filters">
+            <input type="text" name="country" placeholder="Country" value="{{ filters.country or '' }}">
+            <input type="text" name="club" placeholder="Club" value="{{ filters.club or '' }}">
+            <input type="number" name="year_gt" placeholder="Year >" value="{{ filters.year_gt or '' }}">
+            <input type="number" name="year_lt" placeholder="Year <" value="{{ filters.year_lt or '' }}">
+            <button type="submit">Filter</button>
+        </form>
+
+        <!-- Players Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Nationality</th>
+                    <th>Club</th>
+                    <th>Year of Birth</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if players %}
+                    {% for player in players %}
+                        <tr>
+                            <td>{{ player.name }}</td>
+                            <td>{{ player.nationality }}</td>
+                            <td>{{ player.current_club }}</td>
+                            <td>{{ player.year_of_birth }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="4">No players found</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <!-- Add Player Link -->
+        <p>
+            <a href="{{ url_for('add_player') }}" class="btn">➕ Add a New Player</a>
+        </p>
+
+        <p class="info">
+            🐳 Served by backend pod: <strong>{{ backend_pod }}</strong><br>
+            🌐 Frontend pod: <strong>{{ frontend_pod }}</strong>
+        </p>
+    {% endblock %}`}}
+
+  add_player.html: |
+    {{`{% extends "base.html" %}
+
+    {% block content %}
+        <h2>Add a New Player</h2>
+
+        <form method="POST">
+            <input type="text" name="name" placeholder="Player Name" required>
+            <input type="text" name="nationality" placeholder="Nationality" required>
+            <input type="text" name="club" placeholder="Club" required>
+            <input type="number" name="year_of_birth" placeholder="Year of Birth" required>
+            <button type="submit">Add Player</button>
+        </form>
+
+        <a href="{{ url_for('index') }}">← Back to players list</a>
+    {% endblock %}`}}

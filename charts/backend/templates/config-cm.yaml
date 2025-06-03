@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.appName }}-config-cm
+  labels:
+    app: {{ .Values.appName }}
+data:
+  POSTGRES_HOST: {{ .Values.cm.config.pg_host | quote }}
+  POSTGRES_PORT: {{ .Values.cm.config.pg_port | quote }}
+  POSTGRES_USER: {{ .Values.cm.config.pg_user | quote }}
+  POSTGRES_PASSWORD: {{ .Values.cm.config.pg_password | quote }}
+  POSTGRES_DB: {{ .Values.cm.config.pg_db | quote }}
