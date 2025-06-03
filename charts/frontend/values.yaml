@@ -15,4 +15,4 @@ hpa:
   maxReplicas: 4
 cm:
   config:
-    backend_host: http://players-info-backend-service.app.svc.cluster.local:5001/api/movies 
+    backend_host: http://players-info-backend-service.app.svc.cluster.local:5001/api/players 
