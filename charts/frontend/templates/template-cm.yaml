@@ -10,7 +10,7 @@ data:
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <title>Movie Catalog</title>
+      <title>Players Catalog</title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -49,12 +49,12 @@ data:
     {% block content %}
 
         <!-- Filters -->
-        <form method="get" class="filters">
-            <input type="text" name="country" placeholder="Country" value="{{ filters.country or '' }}">
-            <input type="text" name="club" placeholder="Club" value="{{ filters.club or '' }}">
-            <input type="number" name="year_gt" placeholder="Year >" value="{{ filters.year_gt or '' }}">
-            <input type="number" name="year_lt" placeholder="Year <" value="{{ filters.year_lt or '' }}">
-            <button type="submit">Filter</button>
+        <form method="get" class="filters" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 1em;">
+            <input type="text" name="country" placeholder="Country" value="{{ filters.country or '' }}" style="flex: 1 1 150px;">
+            <input type="text" name="club" placeholder="Club" value="{{ filters.club or '' }}" style="flex: 1 1 150px;">
+            <input type="number" name="year_gt" placeholder="Year >" value="{{ filters.year_gt or '' }}" style="flex: 1 1 100px;">
+            <input type="number" name="year_lt" placeholder="Year <" value="{{ filters.year_lt or '' }}" style="flex: 1 1 100px;">
+            <button type="submit" style="flex: 0 0 auto;">Filter</button>
         </form>
 
         <!-- Players Table -->
