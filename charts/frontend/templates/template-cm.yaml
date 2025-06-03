@@ -16,6 +16,7 @@ data:
           font-family: Arial, sans-serif;
           margin: 2em;
           background-color: #f8f9fa;
+          color: #212529;
         }
         h1, h2, h3 {
           color: #333;
@@ -33,8 +34,46 @@ data:
           width: 300px;
           display: block;
         }
-        .movie-list {
-          margin-bottom: 2em;
+        .filters {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          align-items: center;
+          margin-bottom: 1.5em;
+        }
+        .filters input,
+        .filters button {
+          padding: 0.5em;
+          border: 1px solid #ced4da;
+          border-radius: 4px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          border-radius: 8px;
+          overflow: hidden;
+          background-color: white;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        thead {
+          background-color: #343a40;
+          color: white;
+        }
+        th, td {
+          padding: 0.75em 1em;
+          text-align: left;
+          border-bottom: 1px solid #dee2e6;
+        }
+        tr:nth-child(even) {
+          background-color: #f1f3f5;
+        }
+        tr:hover {
+          background-color: #e9ecef;
+        }
+        .info {
+          color: gray;
+          font-size: 0.9em;
+          margin-top: 1em;
         }
       </style>
     </head>
@@ -49,12 +88,12 @@ data:
     {% block content %}
 
         <!-- Filters -->
-        <form method="get" class="filters" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 1em;">
-            <input type="text" name="country" placeholder="Country" value="{{ filters.country or '' }}" style="flex: 1 1 150px;">
-            <input type="text" name="club" placeholder="Club" value="{{ filters.club or '' }}" style="flex: 1 1 150px;">
-            <input type="number" name="year_gt" placeholder="Year >" value="{{ filters.year_gt or '' }}" style="flex: 1 1 100px;">
-            <input type="number" name="year_lt" placeholder="Year <" value="{{ filters.year_lt or '' }}" style="flex: 1 1 100px;">
-            <button type="submit" style="flex: 0 0 auto;">Filter</button>
+        <form method="get" class="filters">
+            <input type="text" name="country" placeholder="Country" value="{{ filters.country or '' }}">
+            <input type="text" name="club" placeholder="Club" value="{{ filters.club or '' }}">
+            <input type="number" name="year_gt" placeholder="Year >" value="{{ filters.year_gt or '' }}">
+            <input type="number" name="year_lt" placeholder="Year <" value="{{ filters.year_lt or '' }}">
+            <button type="submit">Filter</button>
         </form>
 
         <!-- Players Table -->
@@ -88,7 +127,7 @@ data:
             <a href="{{ url_for('add_player') }}">Add a new player</a>
         </p>
 
-        <p style="color: gray; font-size: 0.9em;">
+        <p class="info">
             🐳 Served by backend pod: <strong>{{ backend_pod }}</strong><br>
             🌐 Frontend pod: <strong>{{ frontend_pod }}</strong>
         </p>
