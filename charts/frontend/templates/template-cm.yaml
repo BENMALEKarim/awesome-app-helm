@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.appName }}-template-cm
+  labels:
+    app: {{ .Values.appName }}
+data:
+  base.html: |
+    {{`<!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Movie Catalog</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 2em;
+          background-color: #f8f9fa;
+        }
+        h1, h2, h3 {
+          color: #333;
+        }
+        a {
+          color: #007bff;
+          text-decoration: none;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+        form input, form button {
+          margin: 0.3em 0;
+          padding: 0.5em;
+          width: 300px;
+          display: block;
+        }
+        .movie-list {
+          margin-bottom: 2em;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>⚽ Players Catalog</h1>
+      {% block content %}{% endblock %}
+    </body>
+    </html>`}}
+
+  index.html: |
+    {{`{% extends "base.html" %}
+    {% block content %}
+
+        <!-- Filters -->
+        <form method="get" class="filters">
+            <input type="text" name="country" placeholder="Country" value="{{ filters.country or '' }}">
+            <input type="text" name="club" placeholder="Club" value="{{ filters.club or '' }}">
+            <input type="number" name="year_gt" placeholder="Year >" value="{{ filters.year_gt or '' }}">
+            <input type="number" name="year_lt" placeholder="Year <" value="{{ filters.year_lt or '' }}">
+            <button type="submit">Filter</button>
+        </form>
+
+        <!-- Players Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Nationality</th>
+                    <th>Club</th>
+                    <th>Year of Birth</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if players %}
+                    {% for player in players %}
+                        <tr>
+                            <td>{{ player.name }}</td>
+                            <td>{{ player.nationality }}</td>
+                            <td>{{ player.current_club }}</td>
+                            <td>{{ player.year_of_birth }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="4">No players found</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <!-- Add Player Link -->
+        <p>
+            <a href="{{ url_for('add_player') }}">Add a new player</a>
+        </p>
+
+        <p style="color: gray; font-size: 0.9em;">
+            🐳 Served by backend pod: <strong>{{ backend_pod }}</strong><br>
+            🌐 Frontend pod: <strong>{{ frontend_pod }}</strong>
+        </p>
+    {% endblock %}`}}
+
+  add_player.html: |
+    {{`{% extends "base.html" %}
+
+    {% block content %}
+        <h2>Add a New Player</h2>
+
+        <form method="POST">
+            <input type="text" name="name" placeholder="Player Name" required>
+            <input type="text" name="nationality" placeholder="Nationality" required>
+            <input type="text" name="club" placeholder="Club" required>
+            <input type="number" name="year_of_birth" placeholder="Year of Birth" required>
+            <button type="submit">Add Player</button>
+        </form>
+
+        <a href="{{ url_for('index') }}">← Back to players list</a>
+    {% endblock %}`}}
