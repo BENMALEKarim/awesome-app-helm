@@ -3,7 +3,7 @@ entries:
   awesome-app:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-06-03T12:58:01.0107668Z"
+    created: "2025-06-03T15:03:18.672023+02:00"
     description: A Helm chart for Kubernetes
     digest: d497ad36bc19efcea10d0976b730e3eb4d4ccb74b52010ae21f6689147457805
     name: awesome-app
@@ -11,4 +11,26 @@ entries:
     urls:
     - https://BENMALEKarim.github.io/awesome-app-helm/awesome-app-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-03T12:58:01.010241916Z"
+  players-info-backend:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-06-03T15:03:18.672892+02:00"
+    description: A Helm chart for Kubernetes
+    digest: 6a333e17b0627dc81a171c665b3b963d26b7c03f4aa5e5d9e5ba3ad45dfad226
+    name: players-info-backend
+    type: application
+    urls:
+    - https://BENMALEKarim.github.io/awesome-app-helm/players-info-backend-1.0.0.tgz
+    version: 1.0.0
+  players-info-frontend:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-06-03T15:03:18.673323+02:00"
+    description: A Helm chart for Kubernetes
+    digest: 6b700368d1ab593fcd7017476f91345b8ac01aaf2d21daa7abdf12bd56bc0818
+    name: players-info-frontend
+    type: application
+    urls:
+    - https://BENMALEKarim.github.io/awesome-app-helm/players-info-frontend-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-06-03T15:03:18.670884+02:00"
