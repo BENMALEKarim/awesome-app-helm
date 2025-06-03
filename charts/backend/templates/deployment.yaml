@@ -18,22 +18,14 @@ spec:
     metadata:
       annotations:
         checksum/config-cm: {{ include (print $.Template.BasePath "/config-cm.yaml") . | sha256sum }}
-        checksum/template-cm: {{ include (print $.Template.BasePath "/template-cm.yaml") . | sha256sum }}
       labels:
         app: {{ .Values.appName }}
     spec:
-      volumes:
-        - name: template-volume
-          configMap:
-            name: {{ .Values.appName }}-template-cm
       containers:
         - name: {{ .Values.appName }}-container
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
-          - containerPort: 8080
+          - containerPort: 5001 
           envFrom:
           - configMapRef:
               name: {{ .Values.appName }}-config-cm
-          volumeMounts:
-          - name: template-volume
-            mountPath: /app/templates
