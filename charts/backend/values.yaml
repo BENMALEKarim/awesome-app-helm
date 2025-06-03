@@ -1,0 +1,22 @@
+appName: players-info-backend
+image:
+  repository: benmalekarim/players-info-backend
+  tag: v1.0.0
+replicas: 2
+service:
+  type: ClusterIP
+  nodePort: ##
+rollout:
+  enabled: false
+  strategy: canary
+hpa:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 4
+cm:
+  config:
+    pg_host: postgresql.postgresql.svc.cluster.local
+    pg_port: "5432"
+    pg_user: postgres
+    pg_password: mysecretpassword
+    pg_db: postgres
